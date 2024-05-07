@@ -38,6 +38,6 @@ public:
 	bool isWall(int child, vector<int> mapData);
 	void printMap(int playerPosition, int ghostPositions[]);
 	bool printGhost(int currentNode, int ghostPositions[]);
-;	void updateMap(int playerPosition);
+	void updateMap(int playerPosition);
 	~LevelMap();
 };
