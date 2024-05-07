@@ -1,5 +1,9 @@
 #include "LevelMap.h"
 
+MapNode::MapNode() {
+	status = true;
+}
+
 MapNode::MapNode(list<int> children) {
 	status = true;
 	this->children = children;
@@ -46,6 +50,7 @@ void LevelMap::createMap(vector<int> mapData) {
 
 list<int> LevelMap::findChildren(int currentNode, vector<int> mapData) {
 	int child = 0;
+
 	list<int> children;
 
 	child = currentNode + 1;	// Right Child
@@ -102,43 +107,48 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 
 	const string yellow = "\033[1;33m";
 	const string blue = "\033[0;34m";
+	const string backBlue = "\033[0;44m";
 	const string reset = "\033[0m";
 
 	SetConsoleOutputCP(CP_UTF8);
 	setvbuf(stdout, nullptr, _IOFBF, 1000);
 
-	for (int i = 0; i < (rowLength + 1); ++i) {
+	cout << "\t\t";
+
+	for (int i = 0; i < (3* rowLength + 4); ++i) {
 		cout << blue << u8"\u2588" << reset;
 	}
 
 	cout << endl;
 
 	for (int i = 0; i < columnLength; ++i) {
-		cout << blue << u8"\u2588" << reset;
+		cout << blue << u8"\t\t\u2588\u2588" << reset;
 
 		for (int j = 0; j < rowLength; ++j) {
 			if (map.find(currentNode) == map.end()) {
-				cout << blue << u8"\u2588" << reset;
+				cout << backBlue << u8"   " << reset;
 			}
 			else if (currentNode == playerPosition) {
-				cout << yellow << "C" << reset;
+				cout << yellow << u8" C " << reset;
 			}
 			else if (!printGhost(currentNode, ghostPositions)) {
 				if (map[currentNode].getStatus()) {
-					cout << u8"\u25CF";
+					cout << u8" \u25CF ";
 				}
 				else {
-					cout << u8"\u25CB";
+					cout << u8" \u25CB ";
 				}
 			}
 
 			++currentNode;
 		}
 
-		cout << blue << u8"\u2588" << reset << endl;
+		cout << blue << u8"\u2588\u2588" << reset << endl;
 	}
 
-	for (int i = 0; i < (rowLength + 1); ++i) {
+	cout << "\t\t";
+
+	for (int i = 0; i < (3 * rowLength + 4); ++i) {
 		cout << blue << u8"\u2588" << reset;
 	}
 
@@ -156,19 +166,19 @@ bool LevelMap::printGhost(int currentNode, int ghostPositions[]) {
 		if (ghostPositions[i] == currentNode) {
 			switch (i) {
 			case 0:
-				cout << red << "A" << reset;
+				cout << red << " A " << reset;
 
 				break;
 			case 1:
-				cout << green << "A" << reset;
+				cout << green << " A " << reset;
 
 				break;
 			case 2:
-				cout << magenta << "A" << reset;
+				cout << magenta << " A " << reset;
 
 				break;
 			case 3:
-				cout << cyan << "A" << reset;
+				cout << cyan << " A " << reset;
 
 				break;
 			}

@@ -14,6 +14,7 @@ private:
 	bool status;
 	list<int> children;
 public:
+	MapNode();
 	MapNode(list<int> children);
 	bool getStatus();
 	void setStatus(bool newStatus);
