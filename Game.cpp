@@ -64,6 +64,42 @@ void Game::movePlayer() {
     }
 }
 
+void Game::moveGhosts() {
+    for (int i = 0; i < ghosts.size(); i++) {
+        switch (difficulty)
+        {
+        case 1:
+            ghosts[i]->getEasyMove();
+            break;
+        case 2:
+            ghosts[i]->getMediumMove();
+            break;
+        case 3:
+            ghosts[i]->getHardMove(player->position, map);
+            break;
+        }
+    }
+}
+
+void Game::start() {
+    int *gPositions = new int[ghosts.size()];
+    while (true) {
+        map->updateMap(player->position);
+        for (int i = 0; i < ghosts.size(); i++) {
+            gPositions[i] = ghosts[i]->position;
+        }
+        map->printMap(player->position, gPositions);
+        movePlayer();
+        if (lose())
+            break;
+        else if (win())
+            break;
+        moveGhosts();
+        if (lose())
+            break;
+    }
+}
+
 Game::~Game() {
     map = nullptr;
     player = nullptr;

@@ -24,5 +24,7 @@ public:
 	bool win();
 	bool lose();
 	void movePlayer();
+	void moveGhosts();
+	void start();
 	~Game();
 };
