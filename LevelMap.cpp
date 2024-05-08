@@ -199,48 +199,58 @@ void LevelMap::updateMap(int playerPosition) {
 	}
 }
 
-bool LevelMap::check(int new_position, int current_position)
-{
-	for (auto i : map[current_position].getChildren())
-	{
-		if (i == new_position)
-		{
-			return true;
-		}
-	}
-	return false;
-}
+int LevelMap::getMove(int playerDirection, int playerPosition) {
+	int newPosition = 0;
 
-int LevelMap::moving_player(int direction, int position)
-{
-	switch (direction)
-	{
-	case 72: if (check((position - rowLength), position))
-	{
-		return (position - rowLength);
+	switch (playerDirection) {
+	case 72:	// Up
+		newPosition = playerPosition - rowLength;
+
+		if (validateMove(newPosition, playerPosition)) {
+			return newPosition;
+		}
+
+		break;
+	case 77:	// Right
+		newPosition = playerPosition + 1;
+
+		if (validateMove(newPosition, playerPosition)) {
+			return newPosition;
+		}
+
+		break;
+	case 80:	// Down
+		newPosition = playerPosition + rowLength;
+
+		if (validateMove(newPosition, playerPosition)) {
+			return newPosition;
+		}
+
+		break;
+	case 75:	// Left
+		newPosition = playerPosition - 1;
+
+		if (validateMove(newPosition, playerPosition)) {
+			return newPosition;
+		}
+
+		break;
+	default:
+		break;
 	}
-		   break;
-	case 75:if (check((position - 1), position))
-	{
-		return (position - 1);
-	}
-		   break;
-	case 77:if (check((position + 1), position))
-	{
-		return (position + 1);
-	}
-		   break;
-	case 80:if (check((position + rowLength), position))
-	{
-		return (position + rowLength);
-	}
-		   break;
-	default: break;
-		
-	}
+
 	return -1;
 }
 
+bool LevelMap::validateMove(int newPosition, int playerPosition) {
+	for (auto child : map[playerPosition].getChildren()) {
+		if (child == newPosition) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 LevelMap::~LevelMap() {
 	map.clear();
