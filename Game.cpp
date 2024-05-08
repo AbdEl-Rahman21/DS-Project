@@ -9,6 +9,9 @@ Game::Game() {
 }
 
 Game::Game(vector<int> mapData, int difficulty) {
+    gameState = -1;
+    finalScore = 0;
+
     this->difficulty = difficulty;
     map = new LevelMap(mapData);
 
@@ -30,6 +33,14 @@ void Game::setStartingPositions() {
         ghosts.push_back(new Ghost(1));
         ghosts.push_back(new Ghost(25));
     }
+}
+
+int Game::getGameState() {
+    return gameState;
+}
+
+int Game::getFinalScore() {
+    return finalScore;
 }
 
 bool Game::lose() {
@@ -70,11 +81,11 @@ void Game::moveGhosts() {
     for (int i = 0; i < ghosts.size(); ++i) {
         switch (difficulty) {
         case 1:
-            ghosts[i]->getEasyMove();
+            //ghosts[i]->getEasyMove();
 
             break;
         case 2:
-            ghosts[i]->getMediumMove();
+            //ghosts[i]->getMediumMove();
 
             break;
         case 3:
@@ -105,8 +116,6 @@ void Game::start() {
 
         map->updateMap(player->position);
         map->printMap(player->position, ghostPositions);
-
-        gameState = endGame();
 
         if (endGame() != -1) {
             break;

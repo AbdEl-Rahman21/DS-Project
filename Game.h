@@ -22,6 +22,8 @@ private:
 public:
 	Game();
 	Game(vector<int> mapData, int difficulty);
+	int getGameState();
+	int getFinalScore();
 	void setStartingPositions();
 	bool win();
 	bool lose();

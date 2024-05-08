@@ -33,7 +33,7 @@ Ghost::Ghost(int position) {
 }
 
 // Hard Mode Using BFS Algorithm
-int Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {
+void Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {
     queue<GhostNode> nodes;
     GhostNode* currentNode = nullptr;
 
@@ -53,12 +53,11 @@ int Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {
 
         // Pac-Man Postionition is found
         if (playerPosition == currentNode->position) {
-            return currentNode->traceParent();  // Return first move in shortest path
+            position = currentNode->traceParent();  // Set position to first move in shortest path
+
+            break;
         }
     }
-
-    // Pac-Man position is not found
-    return -1;
 }
 
 Ghost::~Ghost() {

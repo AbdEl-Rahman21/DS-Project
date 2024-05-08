@@ -1,18 +1,28 @@
 #pragma once
-#include "Game.h"
-#include <iostream>
-using namespace std;
-class Menu
-{
-	
-	int map, diff ;
-	Game* game;
-	Menu();
-	void startgame();
-	void gamesett();
-	void aftergamew();
-	void aftergamel();
-	void printmenu();
-	
-};
 
+#include "Game.h"
+#include "Storage.h"
+
+#include <iostream>
+
+using namespace std;
+
+class Menu {
+private:
+	int mapNumber;
+	int difficulty;
+
+	Game* game;
+	Storage* storage;
+public:
+	Menu();
+	void run();
+	void startGame();
+	void createGame();
+	void selectMap();
+	void selectDifficulty();
+	int printWinMenu();
+	int printLoseMenu();
+	int printMenu();
+	~Menu();
+};

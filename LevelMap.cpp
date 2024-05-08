@@ -134,7 +134,6 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 	const string reset = "\033[0m";
 
 	SetConsoleOutputCP(CP_UTF8);
-	setvbuf(stdout, nullptr, _IOFBF, 1000);
 
 	system("CLS");
 
@@ -154,15 +153,15 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 				cout << backBlue << u8"   " << reset;
 			}
 			else if (!printGhost(currentNode, ghostPositions)) {
-				if (map[currentNode].getStatus()) {
+				if (currentNode == playerPosition) {
+					cout << yellow << u8" C " << reset;
+				}
+				else if (map[currentNode].getStatus()) {
 					cout << u8" \u25CF ";
 				}
 				else {
 					cout << u8" \u25CB ";
 				}
-			}
-			else if (currentNode == playerPosition) {
-				cout << yellow << u8" C " << reset;
 			}
 
 			++currentNode;

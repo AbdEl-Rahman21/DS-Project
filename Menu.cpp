@@ -1,110 +1,205 @@
 #include "Menu.h"
-void Menu::startgame() {
-	game = new Game(map,diff);
+
+Menu::Menu() {
+	mapNumber = 0;
+	difficulty = 0;
+	game = nullptr;
+	storage = new Storage();
 }
-void Menu::printmenu()
-{
-	cout << "Welcome to Pac-Man game\nMain Menu\nChoose from below:\n1)New Game\n2)Score History ";
+
+void Menu::run() {
 	int choice = 0;
-	cin >> choice;
-	switch (choice)
-	{
-	case 1:
-		gamesett();
-		startgame();
-		break;
-	case 2:
-		//storage;
-		break;
-	default:
-		break;
-	}
+
+	do {
+		choice = printMenu();
+
+		switch (choice) {
+		case 1:
+			createGame();
+
+			startGame();
+
+			break;
+		case 2:
+			//score;
+
+			break;
+		case 3:
+			return;
+		}
+
+		while (game != nullptr) {
+			if (game->getGameState() == 1) {
+				choice = printWinMenu();
+
+				// score
+				switch (choice) {
+				case 1:
+					delete game;
+
+					game = nullptr;
+
+					break;
+				case 2:
+					createGame();
+
+					startGame();
+
+					break;
+				}
+			}
+			else {
+				choice = printLoseMenu();
+
+				//score
+				switch (choice) {
+				case 1:
+					delete game;
+
+					game = nullptr;
+
+					break;
+				case 2:
+					startGame();
+
+					break;
+				}
+			}
+		}
+	} while (true);
 }
-void Menu::aftergamew()
-{
-	cout << "Choose from below:\n1)Main menu\n2)New game\n";
-	int choice4 = 0;
-	cin >> choice4;
-	switch (choice4)
-	{
-	case 1:
-		printmenu();
-		break;
-	case 2:
-		gamesett();
-		startgame();
-		break;
-	default:
-		break;
-	}
+
+int Menu::printMenu() {
+	int choice = 0;
+
+	do {
+		system("CLS");
+
+		cout << "\t\t\t===== Pac-Man =====\nMain Menu:-\n1- New Game.\n2- High Scores.\n3- Exit.\nEnter your choice: ";
+		cin >> choice;
+
+		switch (choice) {
+		case 1:
+		case 2:
+		case 3:
+			return choice;
+		}
+
+	} while (true);
 }
-void Menu::aftergamel()
-{
-	cout << "Choose from below:\n1)Main menu\n2)Restart game\n";
-	int choice4 = 0;
-	cin >> choice4;
-	switch (choice4)
-	{
-	case 1:
-		printmenu();
-		break;
-	case 2:
-		startgame();
-		break;
-	default:
-		break;
-	}
+
+void Menu::createGame() {
+	selectMap();
+	selectDifficulty();
 }
-void Menu::gamesett()
-{
-	cout << "Choose your Map:\n1)Map1\n2)Map2\n3)Map3\n4)Map4(practice)";
-	int choice2 = 0;
-	cin >> choice2;
-	switch (choice2)
-	{
+
+void Menu::selectMap() {
+	int choice = -1;
+
+	do {
+		system("CLS");
+
+		cout << "Choose a map:-\n0- Map 0 (Tutorial)\n1- Map 1\n2- Map 2\n3- Map 3\nEnter your choice: ";
+		cin >> choice;
+
+		switch (choice) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+			mapNumber = choice;
+
+			return;
+		}
+
+	} while (true);
+}
+
+void Menu::selectDifficulty() {
+	int choice = -1;
+
+	do {
+		system("CLS");
+
+		cout << "Choose a diffculty:-\n1- Easy\n2- Medium\n3- Hard\nEnter your choice: ";
+		cin >> choice;
+
+		switch (choice) {
+		case 1:
+		case 2:
+		case 3:
+			difficulty = choice;
+
+			return;
+		}
+
+	} while (true);
+}
+
+void Menu::startGame() {
+	vector<int> mapData;
+
+	switch (mapNumber) {
+	case 0:
+		mapData = storage->map0;
+
+		break;
 	case 1:
-		map = 1;
+		mapData = storage->map1;
+
 		break;
 	case 2:
-		map = 2;
+		mapData = storage->map2;
+
 		break;
 	case 3:
-		map = 3;
-		break;
-	case 4:
-		map = 4;
-		break;
-	default:
-		break;
+		mapData = storage->map3;
 
+		break;
 	}
-	cout << "Choose your diffculty:\n1)easy\n2)Medium\n3)Hard";
-	int choice3 = 0;
-	cin >> choice3;
-	switch (choice3)
-	{
-	case 1:
-		diff = 1;
-		break;
-	case 2:
-		diff = 2;
-		break;
-	case 3:
-		diff = 3;
-		break;
-	default:
-		break;
 
-	}
+	game = new Game(mapData, difficulty);
+
+	game->start();
 }
-Menu::Menu()
-{
-	 map = 0, diff = 0;
+
+int Menu::printWinMenu() {
+	int choice = -1;
+
+	do {
+		system("CLS");
+
+		cout << "\t\t\t===== Win =====\nChoose from below:-\n1- Return to main menu\n2- New game\nEnter your choice: ";
+		cin >> choice;
+
+		switch (choice) {
+		case 1:
+		case 2:
+			return choice;
+		}
+
+	} while (true);
 }
-/*int main()
-{
-	menu();
-	cout << map << "\n " << diff;
-	system("pause");
-	return 0;
-}*/
+
+int Menu::printLoseMenu() {
+	int choice = -1;
+
+	do {
+		system("CLS");
+
+		cout << "\t\t\t===== Lose =====\nChoose from below:-\n1- Return to main menu\n2- Restart game\nEnter your choice: ";
+		cin >> choice;
+
+		switch (choice) {
+		case 1:
+		case 2:
+			return choice;
+		}
+
+	} while (true);
+}
+
+Menu::~Menu() {
+	game = nullptr;
+	storage = nullptr;
+}

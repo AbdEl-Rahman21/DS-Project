@@ -1,16 +1,9 @@
-#include <iostream>
-#include "Storage.h"
-#include "LevelMap.h"
-
-using namespace std;
+#include "Menu.h"
 
 int main() {
-	int a[] = {1, 26,729,754};
-	Storage s;
+	Menu m;
 
-	LevelMap m(s.map3);
-	m.updateMap(273);
-	m.printMap(274, a);
+	m.run();
 
 	return 0;
 }
