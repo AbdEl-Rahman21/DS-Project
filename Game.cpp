@@ -28,8 +28,7 @@ while (!Ghost_Q.empty())
         Ghost_Q.push(node(*itr, Ghost_Q.front().Parent));
         itr++;
     }
-    Ghost_Q.pop();
-    //Pac-Man Postionition is found
+    Ghost_    //Pac-Man Postionition is found
     if (PacMan_Pos == Ghost_Q.front().Position)
     {
         int Best_Move = findParent(Ghost_Q.front().Parent);
@@ -38,5 +37,23 @@ while (!Ghost_Q.empty())
 }
 //Pac-Man position is not found
 return -1;
+}
+
+
+bool Game::lose(int playerPosition, int ghostPosition[4]) {
+    for (int i = 0; i < 4; i++) {
+        if (playerPosition == ghostPosition[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool Game::win(int food) {
+    if (food == 0) {
+        return true;
+    }
+    return false;
 }
 
