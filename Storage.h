@@ -8,6 +8,7 @@ using namespace std;
 
 class Storage {
 public:
+	vector<int> map0;
 	vector<int> map1;
 	vector<int> map2;
 	vector<int> map3;

@@ -144,6 +144,7 @@
     <ClInclude Include="Storage.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Map0.txt" />
     <Text Include="Map1.txt" />
     <Text Include="Map2.txt" />
     <Text Include="Map3.txt" />

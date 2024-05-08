@@ -1,6 +1,7 @@
 #include "Storage.h"
 
 Storage::Storage() {
+	map0 = loadMap(0);
 	map1 = loadMap(1);
 	map2 = loadMap(2);
 	map3 = loadMap(3);
@@ -16,14 +17,23 @@ vector<int> Storage::loadMap(int mapNumber) {
 	string row = "\0";
 	string mapLocation = "\0";
 
-	if (mapNumber == 1) {
+	switch (mapNumber) {
+	case 0:
+		mapLocation = "Map0.txt";
+
+		break;
+	case 1:
 		mapLocation = "Map1.txt";
-	}
-	else if(mapNumber == 2) {
+
+		break;
+	case 2:
 		mapLocation = "Map2.txt";
-	}
-	else {
+
+		break;
+	case 3:
 		mapLocation = "Map3.txt";
+
+		break;
 	}
 
 	mapFile.open(mapLocation, ios::in);
@@ -51,6 +61,7 @@ vector<int> Storage::loadMap(int mapNumber) {
 }
 
 Storage::~Storage() {
+	map0.clear();
 	map1.clear();
 	map2.clear();
 	map3.clear();
