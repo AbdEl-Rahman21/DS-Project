@@ -1,17 +1,26 @@
 #pragma once
-#include "Game.h"
-#include<iostream> 
-#include<queue>
-#include<vector>
-#include<unordered_map>
-#include"node.h"
-using namespace std;
-class Game
-{
-	int findParent(node*);
-	int Hard_Mode(int, int, unordered_map <int, Node>& map);
-	bool win(int food);
-	bool lose(int playerPosition, int ghostPosition[4]);
-	void move_player();
-};
 
+#include "Ghost.h"
+#include "Player.h"
+#include "LevelMap.h"
+
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+class Game {
+private:
+	LevelMap* map;
+	Player* player;
+	int difficulty;
+	vector<Ghost*> ghosts;
+public:
+	Game();
+	Game(vector<int> mapData, int difficulty);
+	void setStartingPositions();
+	bool win();
+	bool lose();
+	void movePlayer();
+	~Game();
+};

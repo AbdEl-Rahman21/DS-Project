@@ -1,79 +1,65 @@
 #include "Game.h"
-#include<iostream>
-#include<queue>
-#include<vector>
-#include<unordered_map>
-#include"node.h"
-#include"Player.h"
-#include"LevelMap.h"
-using namespace std;
-Player p;
-LevelMap m;
-int Game::findParent(node* x)
-{
-    while (x->Parent->Parent != NULL)
-        x = x->Parent;
-    return x->Position;
+
+Game::Game() {
+    difficulty = 0;
+    map = nullptr;
+    player = nullptr;
 }
-int Game::Hard_Mode(int PacMan_Pos, int Ghost_Pos, unordered_map<int, Node>& map)
-{
-//Hard Mode using BFS Algorithm 
-    queue<node> Ghost_Q;
-    Ghost_Q.push(node(Ghost_Pos, nullptr));
 
-    vector<int>::iterator itr;
+Game::Game(vector<int> mapData, int difficulty) {
+    this->difficulty = difficulty;
+    map = new LevelMap(mapData);
 
-while (!Ghost_Q.empty())
-{
-    //Children of each node insertion in the queue
-    itr = map[Ghost_Q.front().Position].child.begin();
-    while (itr != map[Ghost_Q.front().Position].child.end())
-    {
-        Ghost_Q.push(node(*itr, Ghost_Q.front().Parent));
-        itr++;
+    setStartingPositions();
+}
+
+void Game::setStartingPositions() {
+    if (map->getRowLength() == 26) {    // Maps 1, 2, 3
+        player = new Player(273);
+
+        ghosts.push_back(new Ghost(1));
+        ghosts.push_back(new Ghost(26));
+        ghosts.push_back(new Ghost(729));
+        ghosts.push_back(new Ghost(754));
     }
-    Ghost_Q.pop();
-    //Pac-Man Postionition is found
-    if (PacMan_Pos == Ghost_Q.front().Position)
-    {
-        int Best_Move = findParent(Ghost_Q.front().Parent);
-        return Best_Move;
+    else {  // Map 0
+        player = new Player(13);
+
+        ghosts.push_back(new Ghost(1));
+        ghosts.push_back(new Ghost(25));
     }
 }
-//Pac-Man position is not found
-return -1;
-}
 
-
-bool Game::lose(int playerPosition, int ghostPosition[4]) {
-    for (int i = 0; i < 4; i++) {
-        if (playerPosition == ghostPosition[i]) {
+bool Game::lose() {
+    for (int i = 0; i < ghosts.size(); i++) {
+        if (player->position == ghosts[i]->position) {
             return true;
         }
     }
+
     return false;
 }
 
-
-bool Game::win(int food) {
-    if (food == 0) {
+bool Game::win() {
+    if (map->getRemainingPoints() == 0) {
         return true;
     }
+
     return false;
 }
 
-void Game::move_player()
-{
-    int new_position;
+void Game::movePlayer() {
+    int newPosition = 0;
     
-    while (true)
-    {
-        new_position= m.moving_player(p.get_direction(), p.position);
-        if (new_position != -1)
-        {
-            p.position = new_position;
+    while (true) {
+        newPosition = map->getNewPosition(player->getMove(), player->position);
+
+        if (newPosition != -1) {
+            player->position = newPosition;
+
             break;
         }
-    }
 
+        cout << "Invaild Move!" << endl;
+    }
 }

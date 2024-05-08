@@ -20,7 +20,7 @@ public:
 };
 
 class Ghost {
-private:
+public:
 	int position;
 public:
 	Ghost();

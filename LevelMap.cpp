@@ -25,6 +25,13 @@ MapNode::~MapNode() {
 	children.clear();
 }
 
+LevelMap::LevelMap() {
+	rowLength = 0;
+	columnLength = 0;
+	eatenPoints = 0;
+	remainingPoints = 0;
+}
+
 LevelMap::LevelMap(vector<int> mapData) {
 	rowLength = *(--mapData.end());
 
@@ -36,6 +43,14 @@ LevelMap::LevelMap(vector<int> mapData) {
 	remainingPoints = mapData.size();
 
 	createMap(mapData);
+}
+
+int LevelMap::getRowLength() {
+	return rowLength;
+}
+
+int LevelMap::getRemainingPoints() {
+	return remainingPoints;
 }
 
 void LevelMap::createMap(vector<int> mapData) {
@@ -199,14 +214,14 @@ void LevelMap::updateMap(int playerPosition) {
 	}
 }
 
-int LevelMap::getMove(int playerDirection, int playerPosition) {
+int LevelMap::getNewPosition(int playerDirection, int playerPosition) {
 	int newPosition = 0;
 
 	switch (playerDirection) {
 	case 72:	// Up
 		newPosition = playerPosition - rowLength;
 
-		if (validateMove(newPosition, playerPosition)) {
+		if (validatePosition(newPosition, playerPosition)) {
 			return newPosition;
 		}
 
@@ -214,7 +229,7 @@ int LevelMap::getMove(int playerDirection, int playerPosition) {
 	case 77:	// Right
 		newPosition = playerPosition + 1;
 
-		if (validateMove(newPosition, playerPosition)) {
+		if (validatePosition(newPosition, playerPosition)) {
 			return newPosition;
 		}
 
@@ -222,7 +237,7 @@ int LevelMap::getMove(int playerDirection, int playerPosition) {
 	case 80:	// Down
 		newPosition = playerPosition + rowLength;
 
-		if (validateMove(newPosition, playerPosition)) {
+		if (validatePosition(newPosition, playerPosition)) {
 			return newPosition;
 		}
 
@@ -230,7 +245,7 @@ int LevelMap::getMove(int playerDirection, int playerPosition) {
 	case 75:	// Left
 		newPosition = playerPosition - 1;
 
-		if (validateMove(newPosition, playerPosition)) {
+		if (validatePosition(newPosition, playerPosition)) {
 			return newPosition;
 		}
 
@@ -242,7 +257,7 @@ int LevelMap::getMove(int playerDirection, int playerPosition) {
 	return -1;
 }
 
-bool LevelMap::validateMove(int newPosition, int playerPosition) {
+bool LevelMap::validatePosition(int newPosition, int playerPosition) {
 	for (auto child : map[playerPosition].getChildren()) {
 		if (child == newPosition) {
 			return true;
