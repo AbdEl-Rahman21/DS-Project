@@ -28,7 +28,8 @@ while (!Ghost_Q.empty())
         Ghost_Q.push(node(*itr, Ghost_Q.front().Parent));
         itr++;
     }
-    Ghost_    //Pac-Man Postionition is found
+    Ghost_Q.pop();
+    //Pac-Man Postionition is found
     if (PacMan_Pos == Ghost_Q.front().Position)
     {
         int Best_Move = findParent(Ghost_Q.front().Parent);
