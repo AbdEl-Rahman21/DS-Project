@@ -33,7 +33,7 @@ Ghost::Ghost(int position) {
 }
 
 // Hard Mode Using BFS Algorithm
-int Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode>& map) {
+int Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {
     queue<GhostNode> nodes;
     GhostNode* currentNode = nullptr;
 

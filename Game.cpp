@@ -1,6 +1,8 @@
 #include "Game.h"
 
 Game::Game() {
+    gameState = -1;
+    finalScore = 0;
     difficulty = 0;
     map = nullptr;
     player = nullptr;
@@ -65,39 +67,64 @@ void Game::movePlayer() {
 }
 
 void Game::moveGhosts() {
-    for (int i = 0; i < ghosts.size(); i++) {
-        switch (difficulty)
-        {
+    for (int i = 0; i < ghosts.size(); ++i) {
+        switch (difficulty) {
         case 1:
             ghosts[i]->getEasyMove();
+
             break;
         case 2:
             ghosts[i]->getMediumMove();
+
             break;
         case 3:
-            ghosts[i]->getHardMove(player->position, map);
+            ghosts[i]->getHardMove(player->position, map->getMap());
+
             break;
         }
     }
 }
 
 void Game::start() {
-    int *gPositions = new int[ghosts.size()];
+    int *ghostPositions = new int[ghosts.size()];
+
+    map->updateMap(player->position);
+
     while (true) {
-        map->updateMap(player->position);
-        for (int i = 0; i < ghosts.size(); i++) {
-            gPositions[i] = ghosts[i]->position;
+        for (int i = 0; i < ghosts.size(); ++i) {
+            ghostPositions[i] = ghosts[i]->position;
         }
-        map->printMap(player->position, gPositions);
+
+        map->printMap(player->position, ghostPositions);
+
+        if (endGame() != -1) {
+            break;
+        }
+
         movePlayer();
-        if (lose())
+
+        map->updateMap(player->position);
+        map->printMap(player->position, ghostPositions);
+
+        gameState = endGame();
+
+        if (endGame() != -1) {
             break;
-        else if (win())
-            break;
+        }
+
         moveGhosts();
-        if (lose())
-            break;
     }
+}
+
+int Game::endGame() {
+    if (lose()) {
+        gameState = 0;
+    }
+    else if (win()) {
+        gameState = 1;
+    }
+
+    return gameState;
 }
 
 Game::~Game() {

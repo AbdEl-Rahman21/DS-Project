@@ -11,7 +11,9 @@ using namespace std;
 
 class Game {
 private:
+	int gameState;
 	int difficulty;
+	int finalScore;
 
 	LevelMap* map;
 	Player* player;
@@ -26,5 +28,6 @@ public:
 	void movePlayer();
 	void moveGhosts();
 	void start();
+	int endGame();
 	~Game();
 };

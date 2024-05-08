@@ -28,6 +28,6 @@ public:
 	Ghost(int position);
 	int getEasyMove();
 	int getMediumMove();
-	int getHardMove(int playerPosition, unordered_map<int, MapNode>& map);
+	int getHardMove(int playerPosition, unordered_map<int, MapNode> map);
 	~Ghost();
 };

@@ -53,6 +53,14 @@ int LevelMap::getRemainingPoints() {
 	return remainingPoints;
 }
 
+int LevelMap::getEatenPoints() {
+	return eatenPoints;
+}
+
+unordered_map<int, MapNode> LevelMap::getMap() {
+	return map;
+}
+
 void LevelMap::createMap(vector<int> mapData) {
 	int currentNode = 0;
 
@@ -128,6 +136,8 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 	SetConsoleOutputCP(CP_UTF8);
 	setvbuf(stdout, nullptr, _IOFBF, 1000);
 
+	system("CLS");
+
 	cout << "\t\t";
 
 	for (int i = 0; i < (3* rowLength + 4); ++i) {
@@ -143,9 +153,6 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 			if (map.find(currentNode) == map.end()) {
 				cout << backBlue << u8"   " << reset;
 			}
-			else if (currentNode == playerPosition) {
-				cout << yellow << u8" C " << reset;
-			}
 			else if (!printGhost(currentNode, ghostPositions)) {
 				if (map[currentNode].getStatus()) {
 					cout << u8" \u25CF ";
@@ -153,6 +160,9 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 				else {
 					cout << u8" \u25CB ";
 				}
+			}
+			else if (currentNode == playerPosition) {
+				cout << yellow << u8" C " << reset;
 			}
 
 			++currentNode;
@@ -167,7 +177,7 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 		cout << blue << u8"\u2588" << reset;
 	}
 
-	cout << endl;
+	cout << endl << "\t\tScore: " << eatenPoints << endl;
 }
 
 bool LevelMap::printGhost(int currentNode, int ghostPositions[]) {

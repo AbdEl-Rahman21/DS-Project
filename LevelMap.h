@@ -37,6 +37,8 @@ public:
 	LevelMap(vector<int> mapData);
 	int getRowLength();
 	int getRemainingPoints();
+	int getEatenPoints();
+	unordered_map<int, MapNode> getMap();
 	void printMap(int playerPosition, int ghostPositions[]);
 	void updateMap(int playerPosition);
 	int getNewPosition(int playerDirection, int playerPosition);
