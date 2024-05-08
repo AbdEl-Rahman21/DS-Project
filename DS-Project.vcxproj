@@ -127,12 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="node.h" />
+    <ClCompile Include="LevelMap.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Storage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="node.cpp" />
+    <ClInclude Include="LevelMap.h" />
+    <ClInclude Include="Storage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Map1.txt" />
+    <Text Include="Map2.txt" />
+    <Text Include="Map3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
