@@ -1,8 +1,16 @@
 #pragma once
-class Player
-{
+
+#include <conio.h>
+#include <iostream>
+
+using namespace std;
+
+class Player {
 public:
 	int position;
-	int get_direction();
+public:
+	Player();
+	Player(int position);
+	int getMove();
+	~Player();
 };
-

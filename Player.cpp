@@ -1,39 +1,37 @@
 #include "Player.h"
-#include<iostream>
-#include<conio.h>
-using namespace std;
-int Player::get_direction()
-{
-    int c, direction;
-    c = _getch();
-    if (c && c != 224)
-    {
-        cout << endl << "Not arrow: " << (char)c << endl;
-    }
-    else
-    {
-        switch (direction = _getch())
-        {
-            //up
-        case 72:
-            return 72;
-            break;
-            //left
-        case 75:
-            return 75;
-            break;
-            //right
-        case 77:
-            return 77;
-            break;
-            //down
-        case 80:
-            return 80;
-            break;
-            //not arrow
-        default:
-            return -1;
-            break;
+
+Player::Player() {
+    position = 0;
+}
+
+Player::Player(int position) {
+    this->position = position;
+}
+
+int Player::getMove() {
+    int choice = 0;
+    int direction = 0;
+
+    while (true) {
+        choice = _getch();  // The first of two values
+
+        if (choice && choice != 224) {  // Check that the input is an arrow key
+            cout << "Invalid Input!" << endl << "Only use arrow keys!" << endl;
+        }
+        else {
+            switch (choice = _getch()) { // The second of two values
+            case 72:    // Up
+            case 77:    // Left
+            case 80:    // Down
+            case 75:    // Right
+                return choice;
+            default:    // Function Key
+                break;
+            }
         }
     }
+}
+
+Player::~Player() {
+    position = 0;
 }
