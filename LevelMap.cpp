@@ -37,10 +37,10 @@ LevelMap::LevelMap(vector<int> mapData) {
 
 	mapData.pop_back();
 
-	columnLength = ceil(*(--mapData.end()) / rowLength);
+	columnLength = (int)ceil(*(--mapData.end()) / rowLength);
 
 	eatenPoints = 0;
-	remainingPoints = mapData.size();
+	remainingPoints = (int)mapData.size();
 
 	createMap(mapData);
 }
@@ -98,7 +98,7 @@ list<int> LevelMap::findChildren(int currentNode, vector<int> mapData) {
 bool LevelMap::isWall(int child, vector<int> mapData) {
 	int left = 0;
 	int middle = 0;
-	int right = mapData.size() - 1;
+	int right = (int)(mapData.size() - 1);
 
 	while (left <= right) {
 		middle = left + (right - left) / 2;

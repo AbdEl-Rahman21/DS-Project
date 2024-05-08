@@ -53,7 +53,7 @@ vector<int> Storage::loadMap(int mapNumber) {
 
 	getline(mapFile, row);
 
-	map.push_back(row.length());
+	map.push_back((int)row.length());
 
 	mapFile.close();
 
