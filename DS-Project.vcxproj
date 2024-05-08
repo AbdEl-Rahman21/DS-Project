@@ -140,7 +140,6 @@
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="LevelMap.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Storage.h" />
   </ItemGroup>
