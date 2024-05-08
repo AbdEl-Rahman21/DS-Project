@@ -21,7 +21,7 @@ int GhostNode::traceParent() {
 }
 
 GhostNode::~GhostNode() {
-	parent = nullptr;
+    delete parent;
 }
 
 Ghost::Ghost() {

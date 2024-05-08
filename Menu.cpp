@@ -200,6 +200,5 @@ int Menu::printLoseMenu() {
 }
 
 Menu::~Menu() {
-	game = nullptr;
-	storage = nullptr;
+	delete storage;
 }

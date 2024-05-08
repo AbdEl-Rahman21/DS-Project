@@ -123,6 +123,8 @@ void Game::start() {
 
         moveGhosts();
     }
+
+    delete[] ghostPositions;
 }
 
 int Game::endGame() {
@@ -137,8 +139,12 @@ int Game::endGame() {
 }
 
 Game::~Game() {
-    map = nullptr;
-    player = nullptr;
+    delete map;
+    delete player;
+
+    for (int i = 0; i < ghosts.size(); ++i) {
+        delete ghosts[i];
+    }
 
     ghosts.clear();
 }
