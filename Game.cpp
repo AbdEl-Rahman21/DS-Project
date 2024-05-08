@@ -4,7 +4,11 @@
 #include<vector>
 #include<unordered_map>
 #include"node.h"
+#include"Player.h"
+#include"LevelMap.h"
 using namespace std;
+Player p;
+LevelMap m;
 int Game::findParent(node* x)
 {
     while (x->Parent->Parent != NULL)
@@ -58,3 +62,18 @@ bool Game::win(int food) {
     return false;
 }
 
+void Game::move_player()
+{
+    int new_position;
+    
+    while (true)
+    {
+        new_position= m.moving_player(p.get_direction(), p.position);
+        if (new_position != -1)
+        {
+            p.position = new_position;
+            break;
+        }
+    }
+
+}

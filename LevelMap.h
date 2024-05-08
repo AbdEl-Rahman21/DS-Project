@@ -39,5 +39,7 @@ public:
 	void printMap(int playerPosition, int ghostPositions[]);
 	bool printGhost(int currentNode, int ghostPositions[]);
 	void updateMap(int playerPosition);
+	int moving_player(int direction,int position);
+	bool check(int new_position, int current_position);
 	~LevelMap();
 };

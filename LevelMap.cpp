@@ -199,6 +199,49 @@ void LevelMap::updateMap(int playerPosition) {
 	}
 }
 
+bool LevelMap::check(int new_position, int current_position)
+{
+	for (auto i : map[current_position].getChildren())
+	{
+		if (i == new_position)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+int LevelMap::moving_player(int direction, int position)
+{
+	switch (direction)
+	{
+	case 72: if (check((position - rowLength), position))
+	{
+		return (position - rowLength);
+	}
+		   break;
+	case 75:if (check((position - 1), position))
+	{
+		return (position - 1);
+	}
+		   break;
+	case 77:if (check((position + 1), position))
+	{
+		return (position + 1);
+	}
+		   break;
+	case 80:if (check((position + rowLength), position))
+	{
+		return (position + rowLength);
+	}
+		   break;
+	default: break;
+		
+	}
+	return -1;
+}
+
+
 LevelMap::~LevelMap() {
 	map.clear();
 }
