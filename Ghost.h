@@ -11,6 +11,7 @@ using namespace std;
 class GhostNode {
 public:
 	int position;
+
 	GhostNode* parent;
 public:
 	GhostNode();

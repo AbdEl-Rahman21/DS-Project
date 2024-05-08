@@ -63,3 +63,10 @@ void Game::movePlayer() {
         cout << "Invaild Move!" << endl;
     }
 }
+
+Game::~Game() {
+    map = nullptr;
+    player = nullptr;
+
+    ghosts.clear();
+}

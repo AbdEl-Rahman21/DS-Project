@@ -12,6 +12,7 @@ using namespace std;
 class MapNode {
 private:
 	bool status;
+
 	list<int> children;
 public:
 	MapNode();

@@ -11,9 +11,11 @@ using namespace std;
 
 class Game {
 private:
+	int difficulty;
+
 	LevelMap* map;
 	Player* player;
-	int difficulty;
+
 	vector<Ghost*> ghosts;
 public:
 	Game();
