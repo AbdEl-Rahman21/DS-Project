@@ -1,21 +1,5 @@
 #include "Ghost.h"
 
-GhostNode::GhostNode() {
-	position = 0;
-}
-
-GhostNode::GhostNode(int position) {
-	this->position = position;
-}
-
-int GhostNode::traceParent() {
-    return parents.at(1);
-}
-
-GhostNode::~GhostNode() {
-    parents.clear();
-}
-
 Ghost::Ghost() {
 	position = 0;
 }
@@ -24,9 +8,9 @@ Ghost::Ghost(int position) {
 	this->position = position;
 }
 
-bool Ghost::isVisited(vector<int> VisitedNodes , int child) {
-    for (int i = 0; i < VisitedNodes.size(); ++i) {
-        if (VisitedNodes[i] == child) {
+bool Ghost::isVisited(list<int> visitedNodes , int node) {
+    for (int visitedNode : visitedNodes) {
+        if (visitedNode == node) {
             return true;
         }
     }
@@ -34,41 +18,41 @@ bool Ghost::isVisited(vector<int> VisitedNodes , int child) {
     return false;
 }
 
-// Hard Mode Using BFS Algorithm
-void Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {
-    queue<GhostNode> nodes;
-    GhostNode* currentNode = nullptr;
-    vector<int> VisitedNodes;
-    nodes.push(GhostNode(position));
- 
-    currentNode = &nodes.front();
+void Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {  // Hard Mode Using BFS Algorithm
+    list<int> visitedNodes;
+    queue<pair<int, int>> nodes;    // First value is the position, Second value is the first move in the path
 
-    VisitedNodes.push_back(currentNode->position);
+    pair<int, int> currentNode;
+
+    nodes.push(make_pair(position, 0)); // Current position of ghost
+ 
+    currentNode = nodes.front();
+
+    visitedNodes.push_back(currentNode.first);
+
+    for (int child : map[currentNode.first].getChildren()) {
+        visitedNodes.push_back(child);
+
+        nodes.push(make_pair(child, child));    // Set the first move in the path
+    }
 
     while (!nodes.empty()) {
-        // Children of each node insertion in the queue
-        for (int child : map[currentNode->position].getChildren()) {
-            if (!isVisited(VisitedNodes, child)) {
-                VisitedNodes.push_back(child);
-                nodes.push(GhostNode(child));
-                nodes.back().parents = currentNode->parents;
-                nodes.back().parents.push_back(currentNode->position);
-            }
-        }
-
         nodes.pop();
 
-        currentNode = &nodes.front();   // Update currentNode
+        currentNode = nodes.front();
 
-        // Pac-Man Postionition is found
-        if (playerPosition == currentNode->position) {
-            position = currentNode->traceParent();  // Set position to first move in shortest path
+        if (playerPosition == currentNode.first) {  // Pac-Man Postionition is found
+            position = currentNode.second;  // Set position to first move in shortest path
 
             break;
         }
-    }
-}
 
-Ghost::~Ghost() {
-	position = 0;
+        for (int child : map[currentNode.first].getChildren()) {    // Children of each node insertion in the queue
+            if (!isVisited(visitedNodes, child)) {
+                visitedNodes.push_back(child);
+
+                nodes.push(make_pair(child, currentNode.second));
+            }
+        }
+    }
 }
