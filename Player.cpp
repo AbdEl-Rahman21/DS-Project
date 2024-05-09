@@ -31,7 +31,3 @@ int Player::getMove() {
         }
     }
 }
-
-Player::~Player() {
-    position = 0;
-}

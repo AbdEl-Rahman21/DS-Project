@@ -167,8 +167,6 @@ int Menu::printWinMenu() {
 	int choice = -1;
 
 	do {
-		system("CLS");
-
 		cout << "\t\t\t===== Win =====\nChoose from below:-\n1- Return to main menu\n2- New game\nEnter your choice: ";
 		cin >> choice;
 
@@ -185,8 +183,6 @@ int Menu::printLoseMenu() {
 	int choice = -1;
 
 	do {
-		system("CLS");
-
 		cout << "\t\t\t===== Lose =====\nChoose from below:-\n1- Return to main menu\n2- Restart game\nEnter your choice: ";
 		cin >> choice;
 

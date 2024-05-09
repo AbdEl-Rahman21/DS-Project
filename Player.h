@@ -12,5 +12,4 @@ public:
 	Player();
 	Player(int position);
 	int getMove();
-	~Player();
 };
