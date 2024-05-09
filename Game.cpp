@@ -44,8 +44,8 @@ int Game::getFinalScore() {
 }
 
 bool Game::lose() {
-    for (int i = 0; i < ghosts.size(); i++) {
-        if (player->position == ghosts[i]->position) {
+    for (Ghost* ghost : ghosts) {
+        if (player->position == ghost->position) {
             return true;
         }
     }
@@ -78,18 +78,18 @@ void Game::movePlayer() {
 }
 
 void Game::moveGhosts() {
-    for (int i = 0; i < ghosts.size(); ++i) {
+    for (Ghost* ghost : ghosts) {
         switch (difficulty) {
         case 1:
-            //ghosts[i]->getEasyMove();
+            //ghost->getEasyMove();
 
             break;
         case 2:
-            //ghosts[i]->getMediumMove();
+            //ghost->getMediumMove();
 
             break;
         case 3:
-            ghosts[i]->getHardMove(player->position, map->getMap());
+            ghost->getHardMove(player->position, map->getMap());
 
             break;
         }
@@ -97,40 +97,37 @@ void Game::moveGhosts() {
 }
 
 void Game::start() {
-    int *ghostPositions = new int[ghosts.size()];
-
     map->updateMap(player->position);
 
     while (true) {
-        for (int i = 0; i < ghosts.size(); ++i) {
-            ghostPositions[i] = ghosts[i]->position;
-        }
-
-        map->printMap(player->position, ghostPositions);
-
-        if (endGame() != -1) {
-            break;
-        }
+        printBoard();
 
         movePlayer();
 
-        map->updateMap(player->position);
-
         if (endGame() != -1) {
             break;
         }
 
-        try {
-            moveGhosts();
-        }
-        catch (const out_of_range&) {
-            gameState = 0;
+        map->updateMap(player->position);
 
+        moveGhosts();
+
+        if (endGame() != -1) {
             break;
         }
     }
 
-    delete[] ghostPositions;
+    printBoard();
+}
+
+void Game::printBoard() {
+    list<int> ghostPositions;
+
+    for (Ghost* ghost : ghosts) {
+        ghostPositions.push_back(ghost->position);
+    }
+
+    map->printMap(player->position, ghostPositions);
 }
 
 int Game::endGame() {
@@ -148,8 +145,8 @@ Game::~Game() {
     delete map;
     delete player;
 
-    for (int i = 0; i < ghosts.size(); ++i) {
-        delete ghosts[i];
+    for (Ghost* ghost : ghosts) {
+        delete ghost;
     }
 
     ghosts.clear();

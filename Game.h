@@ -4,8 +4,7 @@
 #include "Player.h"
 #include "LevelMap.h"
 
-#include <vector>
-#include <stdexcept>
+#include <list>
 #include <iostream>
 
 using namespace std;
@@ -19,18 +18,20 @@ private:
 	LevelMap* map;
 	Player* player;
 
-	vector<Ghost*> ghosts;
+	list<Ghost*> ghosts;
 public:
 	Game();
 	Game(vector<int> mapData, int difficulty);
 	int getGameState();
 	int getFinalScore();
+	void start();
+	~Game();
+private:
 	void setStartingPositions();
+	void printBoard();
 	bool win();
 	bool lose();
 	void movePlayer();
 	void moveGhosts();
-	void start();
 	int endGame();
-	~Game();
 };

@@ -125,7 +125,7 @@ bool LevelMap::isWall(int child, vector<int> mapData) {
 	return true;
 }
 
-void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
+void LevelMap::printMap(int playerPosition, list<int> ghostPositions) {
 	int currentNode = 1;
 
 	const string yellow = "\033[1;33m";
@@ -179,16 +179,18 @@ void LevelMap::printMap(int playerPosition, int ghostPositions[]) {
 	cout << endl << "\t\tScore: " << eatenPoints << endl;
 }
 
-bool LevelMap::printGhost(int currentNode, int ghostPositions[]) {
+bool LevelMap::printGhost(int currentNode, list<int> ghostPositions) {
+	int counter = 0;
+
 	const string red = "\033[1;31m";
 	const string green = "\033[1;32m";
 	const string magenta = "\033[1;35m";
 	const string cyan = "\033[1;36m";
 	const string reset = "\033[0m";
 
-	for (int i = 0; i < 4; ++i) {
-		if (ghostPositions[i] == currentNode) {
-			switch (i) {
+	for (int ghostPosition : ghostPositions) {
+		if (ghostPosition == currentNode) {
+			switch (counter) {
 			case 0:
 				cout << red << " A " << reset;
 
@@ -209,6 +211,8 @@ bool LevelMap::printGhost(int currentNode, int ghostPositions[]) {
 
 			return true;
 		}
+
+		++counter;
 	}
 
 	return false;

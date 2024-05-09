@@ -39,7 +39,7 @@ public:
 	int getRemainingPoints();
 	int getEatenPoints();
 	unordered_map<int, MapNode> getMap();
-	void printMap(int playerPosition, int ghostPositions[]);
+	void printMap(int playerPosition, list<int> ghostPositions);
 	void updateMap(int playerPosition);
 	int getNewPosition(int playerDirection, int playerPosition);
 	~LevelMap();
@@ -47,6 +47,6 @@ private:
 	void createMap(vector<int> mapData);
 	list<int> findChildren(int currentNode, vector<int> mapData);
 	bool isWall(int child, vector<int> mapData);
-	bool printGhost(int currentNode, int ghostPositions[]);
+	bool printGhost(int currentNode, list<int> ghostPositions);
 	bool validatePosition(int newPosition, int playerPosition);
 };
