@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LevelMap.h"
-#include<vector>
+#include <vector>
 #include <list>
 #include <queue>
 #include <unordered_map>
@@ -11,11 +11,11 @@ using namespace std;
 class GhostNode {
 public:
 	int position;
-
-	GhostNode* parent;
+	
+	vector<int> parents;
 public:
 	GhostNode();
-	GhostNode(int position, GhostNode* parent);
+	GhostNode(int position);
 	int traceParent();
 	~GhostNode();
 };

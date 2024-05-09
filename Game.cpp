@@ -115,13 +115,19 @@ void Game::start() {
         movePlayer();
 
         map->updateMap(player->position);
-        map->printMap(player->position, ghostPositions);
 
         if (endGame() != -1) {
             break;
         }
 
-        moveGhosts();
+        try {
+            moveGhosts();
+        }
+        catch (const out_of_range&) {
+            gameState = 0;
+
+            break;
+        }
     }
 
     delete[] ghostPositions;

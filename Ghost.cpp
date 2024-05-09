@@ -2,27 +2,18 @@
 
 GhostNode::GhostNode() {
 	position = 0;
-	parent = nullptr;
 }
 
-GhostNode::GhostNode(int position, GhostNode* parent) {
+GhostNode::GhostNode(int position) {
 	this->position = position;
-	this->parent = parent;
 }
 
 int GhostNode::traceParent() {
-    GhostNode* currentNode = this;
-
-    while (currentNode->parent->parent != nullptr) {
-        currentNode = currentNode->parent;
-    }
-
-    return currentNode->position;
+    return parents.at(1);
 }
 
 GhostNode::~GhostNode() {
-   // if (parent != nullptr)
-    //delete parent;
+    parents.clear();
 }
 
 Ghost::Ghost() {
@@ -32,13 +23,14 @@ Ghost::Ghost() {
 Ghost::Ghost(int position) {
 	this->position = position;
 }
-bool Ghost::isVisited(vector<int> VisitedNodes , int child)
-{
-    for (int i = 0; i < VisitedNodes.size(); i++)
-    {
-        if (VisitedNodes[i] == child)
+
+bool Ghost::isVisited(vector<int> VisitedNodes , int child) {
+    for (int i = 0; i < VisitedNodes.size(); ++i) {
+        if (VisitedNodes[i] == child) {
             return true;
+        }
     }
+
     return false;
 }
 
@@ -46,18 +38,24 @@ bool Ghost::isVisited(vector<int> VisitedNodes , int child)
 void Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {
     queue<GhostNode> nodes;
     GhostNode* currentNode = nullptr;
-    vector<int>VisitedNodes;
-    nodes.push(GhostNode(position, nullptr));
+    vector<int> VisitedNodes;
+    nodes.push(GhostNode(position));
  
     currentNode = &nodes.front();
-  //  nodes.pop();
+
+    VisitedNodes.push_back(currentNode->position);
+
     while (!nodes.empty()) {
         // Children of each node insertion in the queue
-        VisitedNodes.push_back(currentNode->position);
-        for (auto child : map[currentNode->position].getChildren()) {
-            if(!isVisited(VisitedNodes,child))
-                nodes.push(GhostNode(child, currentNode));  
+        for (int child : map[currentNode->position].getChildren()) {
+            if (!isVisited(VisitedNodes, child)) {
+                VisitedNodes.push_back(child);
+                nodes.push(GhostNode(child));
+                nodes.back().parents = currentNode->parents;
+                nodes.back().parents.push_back(currentNode->position);
+            }
         }
+
         nodes.pop();
 
         currentNode = &nodes.front();   // Update currentNode

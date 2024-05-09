@@ -5,6 +5,7 @@
 #include "LevelMap.h"
 
 #include <vector>
+#include <stdexcept>
 #include <iostream>
 
 using namespace std;
