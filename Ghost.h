@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LevelMap.h"
-
+#include<vector>
 #include <list>
 #include <queue>
 #include <unordered_map>
@@ -29,5 +29,6 @@ public:
 	void getEasyMove();
 	void getMediumMove();
 	void getHardMove(int playerPosition, unordered_map<int, MapNode> map);
+	bool isVisited(vector<int>,int);
 	~Ghost();
 };
