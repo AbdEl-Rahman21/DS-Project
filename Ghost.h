@@ -14,8 +14,8 @@ public:
 public:
 	Ghost();
 	Ghost(int position);
-	void getEasyMove();
-	void getMediumMove();
+	void getEasyMove(unordered_map<int, MapNode> map);
+	void getMediumMove(unordered_map<int, MapNode> map);
 	void getHardMove(int playerPosition, unordered_map<int, MapNode> map);
 	bool isVisited(list<int> visitedNodes, int node);
 };

@@ -81,11 +81,11 @@ void Game::moveGhosts() {
     for (Ghost* ghost : ghosts) {
         switch (difficulty) {
         case 1:
-            //ghost->getEasyMove();
+            ghost->getEasyMove(map->getMap());
 
             break;
         case 2:
-            //ghost->getMediumMove();
+            ghost->getMediumMove(map->getMap());
 
             break;
         case 3:

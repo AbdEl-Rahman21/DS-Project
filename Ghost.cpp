@@ -7,6 +7,26 @@ Ghost::Ghost() {
 Ghost::Ghost(int position) {
 	this->position = position;
 }
+void Ghost::getEasyMove(unordered_map<int, MapNode> map) {
+    int counter = 0;
+    int AvailiableMoves = rand() % map[position].getChildren().size();
+    for (int newMove : map[position].getChildren())
+    {
+        if (AvailiableMoves == counter)
+        {
+            position = newMove;
+            break;
+        }
+        else
+            counter++;
+    }
+}
+void Ghost::getMediumMove(unordered_map<int, MapNode> map)
+{
+    
+        for (int i = 0; i < 2; i++)
+            getEasyMove(map);
+}
 
 bool Ghost::isVisited(list<int> visitedNodes , int node) {
     for (int visitedNode : visitedNodes) {
@@ -24,7 +44,7 @@ void Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {  
 
     pair<int, int> currentNode;
 
-    nodes.push(make_pair(position, 0)); // Current position of ghost
+    nodes.push(make_pair(position, 0)); // Current position of ghost 
  
     currentNode = nodes.front();
 
