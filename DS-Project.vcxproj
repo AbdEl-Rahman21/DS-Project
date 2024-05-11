@@ -148,6 +148,7 @@
     <Text Include="Map1.txt" />
     <Text Include="Map2.txt" />
     <Text Include="Map3.txt" />
+    <Text Include="Scores.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

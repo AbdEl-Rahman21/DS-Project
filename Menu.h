@@ -17,6 +17,7 @@ private:
 public:
 	Menu();
 	void run();
+	void displayScores();
 	void startGame();
 	void createGame();
 	void selectMap();

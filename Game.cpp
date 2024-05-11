@@ -118,6 +118,8 @@ void Game::start() {
     }
 
     printBoard();
+
+    finalScore = map->getEatenPoints() * difficulty;
 }
 
 void Game::printBoard() {

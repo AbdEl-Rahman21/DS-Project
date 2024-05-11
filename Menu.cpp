@@ -21,7 +21,7 @@ void Menu::run() {
 
 			break;
 		case 2:
-			//score;
+			displayScores();
 
 			break;
 		case 3:
@@ -29,10 +29,11 @@ void Menu::run() {
 		}
 
 		while (game != nullptr) {
+			storage->updateScores(game->getFinalScore());
+
 			if (game->getGameState() == 1) {
 				choice = printWinMenu();
 
-				// score
 				switch (choice) {
 				case 1:
 					delete game;
@@ -51,7 +52,6 @@ void Menu::run() {
 			else {
 				choice = printLoseMenu();
 
-				//score
 				switch (choice) {
 				case 1:
 					delete game;
@@ -69,13 +69,25 @@ void Menu::run() {
 	} while (true);
 }
 
+void Menu::displayScores() {
+	system("CLS");
+
+	cout << "\t\t\t===== High Scores =====" << endl;
+
+	for (int i = 0; i < 3; ++i) {
+		cout << i + 1 << "- " << storage->scores[i] << endl;
+	}
+
+	system("PAUSE");
+}
+
 int Menu::printMenu() {
 	int choice = 0;
 
 	do {
 		system("CLS");
 
-		cout << "\t\t\t===== Pac-Man =====\nMain Menu:-\n1- New Game.\n2- High Scores.\n3- Exit.\nEnter your choice: ";
+		cout << "\t\t\t===== Pac-Man =====\n1- New Game.\n2- High Scores.\n3- Exit.\nEnter your choice: ";
 		cin >> choice;
 
 		switch (choice) {
@@ -99,7 +111,7 @@ void Menu::selectMap() {
 	do {
 		system("CLS");
 
-		cout << "Choose a map:-\n0- Map 0 (Tutorial)\n1- Map 1\n2- Map 2\n3- Map 3\nEnter your choice: ";
+		cout << "\t\t\t===== Maps =====\n0- Map 0 (Tutorial)\n1- Map 1\n2- Map 2\n3- Map 3\nEnter your choice: ";
 		cin >> choice;
 
 		switch (choice) {
@@ -121,7 +133,7 @@ void Menu::selectDifficulty() {
 	do {
 		system("CLS");
 
-		cout << "Choose a diffculty:-\n1- Easy\n2- Medium\n3- Hard\nEnter your choice: ";
+		cout << "\t\t\t===== Diffculty =====\n1- Easy\n2- Medium\n3- Hard\nEnter your choice: ";
 		cin >> choice;
 
 		switch (choice) {
@@ -167,7 +179,7 @@ int Menu::printWinMenu() {
 	int choice = -1;
 
 	do {
-		cout << "\t\t\t===== Win =====\nChoose from below:-\n1- Return to main menu\n2- New game\nEnter your choice: ";
+		cout << "\t\t\t===== Win =====\n1- Return to main menu\n2- New game\nEnter your choice: ";
 		cin >> choice;
 
 		switch (choice) {
@@ -183,7 +195,7 @@ int Menu::printLoseMenu() {
 	int choice = -1;
 
 	do {
-		cout << "\t\t\t===== Lose =====\nChoose from below:-\n1- Return to main menu\n2- Restart game\nEnter your choice: ";
+		cout << "\t\t\t===== Lose =====\n1- Return to main menu\n2- Restart game\nEnter your choice: ";
 		cin >> choice;
 
 		switch (choice) {

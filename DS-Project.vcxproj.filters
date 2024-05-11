@@ -62,5 +62,6 @@
     <Text Include="Map2.txt" />
     <Text Include="Map3.txt" />
     <Text Include="Map0.txt" />
+    <Text Include="Scores.txt" />
   </ItemGroup>
 </Project>

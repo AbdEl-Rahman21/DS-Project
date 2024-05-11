@@ -1,10 +1,50 @@
 #include "Storage.h"
 
 Storage::Storage() {
+	loadScores();
+
 	map0 = loadMap(0);
 	map1 = loadMap(1);
 	map2 = loadMap(2);
 	map3 = loadMap(3);
+}
+
+void Storage::loadScores() {
+	ifstream scoreFile;
+
+	scoreFile.open("Scores.txt", ios::in);
+
+	for (int i = 0; i < 3; ++i) {
+		scoreFile >> scores[i];
+	}
+
+	scoreFile.close();
+}
+
+void Storage::saveScores() {
+	ofstream scoreFile;
+
+	scoreFile.open("Scores.txt", ios::out | ios::trunc);
+
+	for (int i = 0; i < 3; ++i) {
+		scoreFile << scores[i] << endl;
+	}
+
+	scoreFile.close();
+}
+
+void Storage::updateScores(int newScore) {
+	for (int i = 0; i < 3; ++i) {
+		if (scores[i] <= newScore) {
+			for (int j = 2; j > i; --j) {
+				scores[j] = scores[j - 1];
+			}
+
+			scores[i] = newScore;
+
+			break;
+		}
+	}
 }
 
 vector<int> Storage::loadMap(int mapNumber) {
@@ -61,6 +101,8 @@ vector<int> Storage::loadMap(int mapNumber) {
 }
 
 Storage::~Storage() {
+	saveScores();
+
 	map0.clear();
 	map1.clear();
 	map2.clear();
