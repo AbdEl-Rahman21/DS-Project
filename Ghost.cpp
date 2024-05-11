@@ -7,25 +7,35 @@ Ghost::Ghost() {
 Ghost::Ghost(int position) {
 	this->position = position;
 }
-void Ghost::getEasyMove(unordered_map<int, MapNode> map) {
+
+int Ghost::getRandomMove(list<int> possibleMoves) {
     int counter = 0;
-    int AvailiableMoves = rand() % map[position].getChildren().size();
-    for (int newMove : map[position].getChildren())
-    {
-        if (AvailiableMoves == counter)
-        {
-            position = newMove;
-            break;
+    int randomMove = rand() % possibleMoves.size();
+
+    for (int move : possibleMoves) {
+        if (randomMove == counter) {
+            return move;
         }
-        else
-            counter++;
+
+        ++counter;
     }
+
+    return possibleMoves.front();
 }
-void Ghost::getMediumMove(unordered_map<int, MapNode> map)
-{
-    
-        for (int i = 0; i < 2; i++)
-            getEasyMove(map);
+
+void Ghost::getEasyMove(unordered_map<int, MapNode> map) {
+    position = getRandomMove(map[position].getChildren());
+}
+
+void Ghost::getMediumMove(unordered_map<int, MapNode> map) {
+    int firstMove = getRandomMove(map[position].getChildren());
+    int secondMove = getRandomMove(map[firstMove].getChildren());
+
+    while (secondMove == position) {
+        secondMove = getRandomMove(map[firstMove].getChildren());
+    }
+
+    position = secondMove;
 }
 
 bool Ghost::isVisited(list<int> visitedNodes , int node) {

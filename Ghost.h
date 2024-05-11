@@ -14,6 +14,7 @@ public:
 public:
 	Ghost();
 	Ghost(int position);
+	int getRandomMove(list<int> possibleMoves);
 	void getEasyMove(unordered_map<int, MapNode> map);
 	void getMediumMove(unordered_map<int, MapNode> map);
 	void getHardMove(int playerPosition, unordered_map<int, MapNode> map);
