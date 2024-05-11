@@ -18,5 +18,6 @@ public:
 	void getEasyMove(unordered_map<int, MapNode> map);
 	void getMediumMove(unordered_map<int, MapNode> map);
 	void getHardMove(int playerPosition, unordered_map<int, MapNode> map);
+	void getRandomizerMove(int playerPosition, unordered_map<int, MapNode> map);
 	bool isVisited(list<int> visitedNodes, int node);
 };

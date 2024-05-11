@@ -133,13 +133,14 @@ void Menu::selectDifficulty() {
 	do {
 		system("CLS");
 
-		cout << "\t\t\t===== Diffculty =====\n1- Easy\n2- Medium\n3- Hard\nEnter your choice: ";
+		cout << "\t\t\t===== Diffculty =====\n1- Easy\n2- Medium\n3- Hard\n4- Randomizer\nEnter your choice: ";
 		cin >> choice;
 
 		switch (choice) {
 		case 1:
 		case 2:
 		case 3:
+		case 4:
 			difficulty = choice;
 
 			return;

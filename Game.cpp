@@ -92,6 +92,10 @@ void Game::moveGhosts() {
             ghost->getHardMove(player->position, map->getMap());
 
             break;
+        case 4:
+            ghost->getRandomizerMove(player->position, map->getMap());
+
+            break;
         }
     }
 }

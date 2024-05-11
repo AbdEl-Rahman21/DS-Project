@@ -86,3 +86,17 @@ void Ghost::getHardMove(int playerPosition, unordered_map<int, MapNode> map) {  
         }
     }
 }
+
+void Ghost::getRandomizerMove(int playerPosition, unordered_map<int, MapNode> map) {
+    double randmoizer = (double)rand() / RAND_MAX;
+
+    if (randmoizer < 0.01) {
+        getMediumMove(map);
+    }
+    else if (randmoizer < 0.10) {
+        getEasyMove(map);
+    }
+    else {
+        getHardMove(playerPosition, map);
+    }
+}
