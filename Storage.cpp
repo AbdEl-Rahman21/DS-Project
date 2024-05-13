@@ -15,7 +15,11 @@ void Storage::loadScores() {
 	scoreFile.open("Scores.txt", ios::in);
 
 	for (int i = 0; i < 3; ++i) {
-		scoreFile >> scores[i];
+		scoreFile >> highScores[i];
+	}
+
+	for (int i = 0; i < 3; ++i) {
+		scoreFile >> latestScores[i];
 	}
 
 	scoreFile.close();
@@ -27,7 +31,11 @@ void Storage::saveScores() {
 	scoreFile.open("Scores.txt", ios::out | ios::trunc);
 
 	for (int i = 0; i < 3; ++i) {
-		scoreFile << scores[i] << endl;
+		scoreFile << highScores[i] << endl;
+	}
+
+	for (int i = 0; i < 3; ++i) {
+		scoreFile << latestScores[i] << endl;
 	}
 
 	scoreFile.close();
@@ -35,16 +43,22 @@ void Storage::saveScores() {
 
 void Storage::updateScores(int newScore) {
 	for (int i = 0; i < 3; ++i) {
-		if (scores[i] <= newScore) {
+		if (highScores[i] <= newScore) {
 			for (int j = 2; j > i; --j) {
-				scores[j] = scores[j - 1];
+				highScores[j] = highScores[j - 1];
 			}
 
-			scores[i] = newScore;
+			highScores[i] = newScore;
 
 			break;
 		}
 	}
+
+	for (int j = 2; j > 0; --j) {
+		latestScores[j] = latestScores[j - 1];
+	}
+
+	latestScores[0] = newScore;
 }
 
 vector<int> Storage::loadMap(int mapNumber) {

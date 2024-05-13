@@ -8,7 +8,8 @@ using namespace std;
 
 class Storage {
 public:
-	int scores[3];
+	int highScores[3];
+	int latestScores[3];
 
 	vector<int> map0;
 	vector<int> map1;

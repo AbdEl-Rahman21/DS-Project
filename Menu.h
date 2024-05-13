@@ -4,8 +4,12 @@
 #include "Game.h"
 #include "Storage.h"
 
+#include <limits>
+#include <string>
 #include <iostream>
 #include <Windows.h>
+
+#undef max
 
 using namespace std;
 
@@ -19,7 +23,8 @@ private:
 public:
 	Menu();
 	void run();
-	void displayScores();
+	void displayHighScores();
+	void displayLatestScores();
 	void startGame();
 	void createGame();
 	void selectMap();
