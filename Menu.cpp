@@ -1,7 +1,4 @@
 #include "Menu.h"
-#include<Windows.h>
-#include<mmsystem.h>
-#pragma comment(lib, "Winmm.lib")
 
 Menu::Menu() {
 	mapNumber = 0;
@@ -54,7 +51,7 @@ void Menu::run() {
 			}
 			else {
 				choice = printLoseMenu();
-
+				
 				switch (choice) {
 				case 1:
 					delete game;
@@ -175,16 +172,19 @@ void Menu::startGame() {
 	}
 
 	game = new Game(mapData, difficulty);
-	PlaySound(TEXT("./pacman_beginning_1.wav"), GetModuleHandle(NULL), SND_FILENAME | SND_ASYNC | SND_LOOP);
+
+	PlaySound(TEXT("./Sound Files/loop.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
 	game->start();
 }
 
 int Menu::printWinMenu() {
 	int choice = -1;
 
+	PlaySound(TEXT("./Sound Files/win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 	do {
 		cout << "\t\t\t===== Win =====\n1- Return to main menu\n2- New game\nEnter your choice: ";
-		PlaySound(TEXT("./Win Sound.wav"), GetModuleHandle(NULL), SND_FILENAME | SND_ASYNC);
 		cin >> choice;
 
 		switch (choice) {
@@ -199,9 +199,10 @@ int Menu::printWinMenu() {
 int Menu::printLoseMenu() {
 	int choice = -1;
 
+	PlaySound(TEXT("./Sound Files/lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 	do {
 		cout << "\t\t\t===== Lose =====\n1- Return to main menu\n2- Restart game\nEnter your choice: ";
-		PlaySound(TEXT("./Lose Sound.wav"), GetModuleHandle(NULL), SND_FILENAME | SND_ASYNC);
 		cin >> choice;
 
 		switch (choice) {

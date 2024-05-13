@@ -1,9 +1,11 @@
 #pragma once
+#pragma comment(lib, "Winmm.lib")
 
 #include "Game.h"
 #include "Storage.h"
 
 #include <iostream>
+#include <Windows.h>
 
 using namespace std;
 

@@ -33,7 +33,7 @@ LevelMap::LevelMap() {
 }
 
 LevelMap::LevelMap(vector<int> mapData) {
-	rowLength = *(--mapData.end());
+	rowLength = *(--mapData.end());	// The row length is stored in the last element of the vector
 
 	mapData.pop_back();
 
@@ -160,7 +160,7 @@ void LevelMap::printMap(int playerPosition, list<int> ghostPositions) {
 					cout << u8" \u25CF ";
 				}
 				else {
-					cout << u8" \u25CB ";
+					cout << u8"   ";
 				}
 			}
 
