@@ -1,4 +1,7 @@
 #include "Menu.h"
+#include<Windows.h>
+#include<mmsystem.h>
+#pragma comment(lib, "Winmm.lib")
 
 Menu::Menu() {
 	mapNumber = 0;
@@ -172,7 +175,7 @@ void Menu::startGame() {
 	}
 
 	game = new Game(mapData, difficulty);
-
+	PlaySound(TEXT("./pacman_beginning_1.wav"), GetModuleHandle(NULL), SND_FILENAME | SND_ASYNC | SND_LOOP);
 	game->start();
 }
 
@@ -181,6 +184,7 @@ int Menu::printWinMenu() {
 
 	do {
 		cout << "\t\t\t===== Win =====\n1- Return to main menu\n2- New game\nEnter your choice: ";
+		PlaySound(TEXT("./Win Sound.wav"), GetModuleHandle(NULL), SND_FILENAME | SND_ASYNC);
 		cin >> choice;
 
 		switch (choice) {
@@ -197,6 +201,7 @@ int Menu::printLoseMenu() {
 
 	do {
 		cout << "\t\t\t===== Lose =====\n1- Return to main menu\n2- Restart game\nEnter your choice: ";
+		PlaySound(TEXT("./Lose Sound.wav"), GetModuleHandle(NULL), SND_FILENAME | SND_ASYNC);
 		cin >> choice;
 
 		switch (choice) {
